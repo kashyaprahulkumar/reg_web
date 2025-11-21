@@ -1,0 +1,7 @@
+Access from Inside the Container (Using docker exec)
+
+
+docker exec -it <container_name> bash  >>Use the docker exec command to open a Bash shell inside the database container: 
+
+
+docker-compose up --build -d >> build image and run
