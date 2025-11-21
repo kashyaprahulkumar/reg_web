@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # --------------------
+  # 1. Web Application Container
+  # --------------------
+  app:
+    # Build the image using the Dockerfile in the current directory
+    build: .
+    # Mount the current directory's code into the container 
+    # This allows you to edit files on your host machine and see changes immediately
+    volumes:
+      - .:/var/www/html
+    # Map port 80 in the container to port 8080 on your host machine
+    ports:
+      - "8080:80"
+    # Link the application container to the database container
+    depends_on:
+      - db
+    # Name the network for internal communication
+    networks:
+      - app-network
+
+  # --------------------
+  # 2. Database Container
+  # --------------------
+  db:
+    # Use the official MariaDB image (a popular drop-in replacement for MySQL)
+    image: mariadb:10.6
+    # Define environment variables for database setup
+    environment:
+      # This is the database name used in your config.php ($dbname)
+      MYSQL_DATABASE: 'project' 
+      # This is the username used in your config.php ($username)
+      MYSQL_USER: 'root'
+      # This is the password used in your config.php ($password)
+      MYSQL_PASSWORD: 'rajree' 
+      # Required for root access
+      MYSQL_ROOT_PASSWORD: 'rajree'
+    # Store the data persistently outside the container
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+# --------------------
+# Define Volumes and Networks
+# --------------------
+volumes:
+  # Volume to persist database data
+  db-data:
+
+networks:
+  # Network for containers to communicate
+  app-network:
+    driver: bridge
