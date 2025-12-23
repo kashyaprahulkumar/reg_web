@@ -13,7 +13,7 @@ services:
       - .:/var/www/html
     # Map port 80 in the container to port 8080 on your host machine
     ports:
-      - "8080:80"
+      - "8090:80"
     # Link the application container to the database container
     depends_on:
       - db

@@ -4,4 +4,13 @@ Access from Inside the Container (Using docker exec)
 docker exec -it <container_name> bash  >>Use the docker exec command to open a Bash shell inside the database container: 
 
 
+
+docker-compose up --build
 docker-compose up --build -d >> build image and run
+
+Run the Container>>>>>>>>>>>>>>>>>>
+
+This command starts the container, mapping the container's internal port 80 (where Apache is running) to a port on your host machine (e.g., 8080).
+Bash
+
+docker run -d -p 8080:80 --name my-web-instance my-php-app
